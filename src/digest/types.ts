@@ -26,9 +26,10 @@ export type DigestRow = {
 export type Night = {
   night: string; // YYYY-MM-DD, the file name
   rows: DigestRow[]; // sorted by job
+  counts: Record<RunStatus, number>; // lines per status, for the board link (§ 2c)
   badLines: number; // lines that didn't parse; counted, never thrown
 };
 
 // Reads runsDir/<night>.jsonl. Returns null when the night has no file (→ 404).
-// An empty file returns { rows: [], badLines: 0 } (→ "nothing ran").
+// An empty file returns { rows: [], counts: all 0, badLines: 0 } (→ "nothing ran").
 export type ReadNight = (runsDir: string, night: string) => Night | null;
